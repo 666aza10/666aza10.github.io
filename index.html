@@ -147,10 +147,11 @@
            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
     </a>
 
-    <!-- ?start=hub — метка источника. Без неё пришедший из шапки профиля в /stats
-         неотличим от любого другого, и проверить, работает ли выход из постов,
-         нечем. Бот принимает любую метку свободным текстом (bot.py, ctx.args[0]). -->
-    <a class="exit" href="https://t.me/bastyq_bot?start=hub">
+    <!-- 06.10.2026 выход ведёт на лендинг bastyk.kz, а не сразу в бота: там табель,
+         находки, цены и выбор WhatsApp/Телеграм. Метка источника едет параметром
+         ?from=hub_xx, лендинг подставляет её в ?start= кнопки Телеграма, поэтому
+         в /stats бота источник по-прежнему виден. -->
+    <a class="exit" href="https://bastyk.kz/?from=hub">
       <span>
         <b>Аналитика бизнеса</b>
         <small>Бот в телеграме подключается к вашей кассе и каждое утро говорит, что вчера пошло не так.</small>
@@ -201,6 +202,9 @@
   if (!/^[a-z0-9_]{1,12}$/.test(s)) s = 'ig';
   document.querySelectorAll('a.exit[href*="start=hub"]').forEach(function(a){
     a.href = a.href.replace('start=hub', 'start=hub_' + s);
+  });
+  document.querySelectorAll('a.exit[href*="from=hub"]').forEach(function(a){
+    a.href = a.href.replace('from=hub', 'from=hub_' + s);
   });
 })();
 </script>
